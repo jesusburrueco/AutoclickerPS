@@ -1,0 +1,15 @@
+    [system.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms") | out-null
+    Add-Type -MemberDefinition '[DllImport("user32.dll")] public static extern void mouse_event(int flags, int dx, int dy, int cButtons, int info);' -Name U32 -Namespace W;
+    [System.Windows.Forms.Cursor]::Position = New-Object System.Drawing.Point(1900,700);
+    for (($i = 0); $i -lt 9000; $i++) {
+      for (($j = 0); $j -lt 500; $j++) {
+        [W.U32]::mouse_event(6,0,0,0,0); //Left Click
+        [W.U32]::mouse_event(24,0,0,0,0); //Right Click
+    
+        echo $j
+    
+        Start-Sleep -m 10;
+      }
+    
+      Start-Sleep -s 10;
+    }
